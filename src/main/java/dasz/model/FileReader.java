@@ -18,15 +18,15 @@ public class FileReader {
             sc = new Scanner(inputStream, StandardCharsets.UTF_8);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if (line.equals(name)){
-                     return Gender.FEMALE;
+                if (line.equals(name)) {
+                    return Gender.FEMALE;
                 }
             }
             inputStream = new FileInputStream(MALE_PATH);
             sc = new Scanner(inputStream, StandardCharsets.UTF_8);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                if (line.equals(name)){
+                if (line.equals(name)) {
                     return Gender.MALE;
                 }
             }
@@ -38,7 +38,6 @@ public class FileReader {
                     inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
-
                 }
             }
             if (sc != null) {
@@ -46,5 +45,5 @@ public class FileReader {
             }
         }
         return Gender.INCONCLUSIVE;
-    };
+    }
 }
