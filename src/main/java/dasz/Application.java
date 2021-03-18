@@ -23,7 +23,6 @@ public class Application {
         int serverPort = 8080;
         HttpServer server = HttpServer.create(new InetSocketAddress(serverPort), 0);
         server.createContext("/api/start", (exchange -> {
-
             if ("GET".equals(exchange.getRequestMethod())) {
                 Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
                 String noNameText = "no names given";
@@ -43,7 +42,6 @@ public class Application {
         }));
 
         server.createContext("/api/nameList", (exchange -> {
-
             if ("GET".equals(exchange.getRequestMethod())) {
                 FileReader fileReader = new FileReader();
                 String namesData = fileReader.getNamesData();
