@@ -1,6 +1,7 @@
 package dasz;
 
 import com.sun.net.httpserver.HttpServer;
+import dasz.data.FileReader;
 import dasz.model.GenderChecker;
 
 import java.io.IOException;
@@ -31,7 +32,6 @@ public class Application {
                 String variant = params.getOrDefault(" variant", List.of(defaultVariant)).stream().findFirst().orElse(defaultVariant);
                 GenderChecker genderChecker = new GenderChecker();
                 String respText = String.valueOf(genderChecker.checkName(name, variant));
-                //String respText = "Names checked: " + name + "variant: "+ variant;
                 exchange.sendResponseHeaders(200, respText.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
                 output.write(respText.getBytes());
@@ -42,13 +42,14 @@ public class Application {
             exchange.close();
         }));
 
-        server.createContext("/api/tables", (exchange -> {
+        server.createContext("/api/nameList", (exchange -> {
 
             if ("GET".equals(exchange.getRequestMethod())) {
-                String respText = "Names tables here";
-                exchange.sendResponseHeaders(200, respText.getBytes().length);
+                FileReader fileReader = new FileReader();
+                String namesData = fileReader.getNamesData();
+                exchange.sendResponseHeaders(200, namesData.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
-                output.write(respText.getBytes());
+                output.write(namesData.getBytes());
                 output.flush();
             } else {
                 exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed
@@ -67,7 +68,6 @@ public class Application {
         return Pattern.compile("&").splitAsStream(query)
                 .map(s -> Arrays.copyOf(s.split("="), 2))
                 .collect(groupingBy(s -> decode(s[0]), mapping(s -> decode(s[1]), toList())));
-
     }
 
     private static String decode(final String encoded) {

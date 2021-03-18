@@ -6,15 +6,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileReader {
     private final String MALE_PATH = "src/main/resources/males.txt";
     private final String FEMALE_PATH = "src/main/resources/females.txt";
+    FileInputStream inputStream = null;
+    Scanner sc = null;
 
     public Gender checkNameInFile(String name) {
-        FileInputStream inputStream = null;
-        Scanner sc = null;
         String path1 = MALE_PATH;
         Gender gender1 = Gender.MALE;
         String path2 = FEMALE_PATH;
@@ -57,5 +59,35 @@ public class FileReader {
             }
         }
         return Gender.INCONCLUSIVE;
+    }
+
+    public String getNamesData(){
+        List<String> namesData = new ArrayList<>();
+        try {
+            inputStream = new FileInputStream(MALE_PATH);
+            sc = new Scanner(inputStream, StandardCharsets.UTF_8);
+            while (sc.hasNextLine()) {
+                namesData.add(sc.next());
+            }
+            inputStream = new FileInputStream(FEMALE_PATH);
+            sc = new Scanner(inputStream, StandardCharsets.UTF_8);
+            while (sc.hasNextLine()) {
+                namesData.add(sc.next());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (sc != null) {
+                sc.close();
+            }
+        }
+        return String.join(", ", namesData);
     }
 }
