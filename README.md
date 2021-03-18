@@ -3,12 +3,13 @@
 Program made for job recruitment.
 
 To check gender of names go to http://localhost:8080/api/start?name=[names]
-For one name variant use http://localhost:8080/api/start?name=[names]20&%20variant=firstName
+For one name variant use http://localhost:8080/api/start?name=[names]%20&%20variant=firstName
 Second variant is used by default, or availible at http://localhost:8080/api/start?name=[names]%20&%20variant=allNames
 [names] is String with Polish names seperated with space, for example "Ewa Piotr Jan"
 
 For names list go to http://localhost:8080/api/nameList
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 Requirements:
 
 Business requirements:
