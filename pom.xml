@@ -7,6 +7,7 @@
     <groupId>dasz</groupId>
     <artifactId>gender-guesser</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>15</java.version>
@@ -33,5 +34,7 @@
         </dependency>
 
     </dependencies>
+
+
 
 </project>

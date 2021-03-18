@@ -25,7 +25,7 @@ public class Application {
         server.createContext("/api/start", (exchange -> {
             if ("GET".equals(exchange.getRequestMethod())) {
                 Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
-                String noNameText = "no names given";
+                String noNameText = "No names given";
                 String name = params.getOrDefault("name", List.of(noNameText)).stream().findFirst().orElse(noNameText);
                 String defaultVariant = "allNames";
                 String variant = params.getOrDefault(" variant", List.of(defaultVariant)).stream().findFirst().orElse(defaultVariant);
