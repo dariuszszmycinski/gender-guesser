@@ -9,7 +9,7 @@ class CheckFirstNameTest {
     @Test
     void checkFirstName() {
         GenderChecker genderChecker = new GenderChecker();
-        Gender result = genderChecker.checkFirstName("Ewa Jan Maurycy");
+        Gender result = genderChecker.checkName("Ewa Jan Maurycy", "firstName");
         assertEquals(Gender.FEMALE, result);
     }
 }

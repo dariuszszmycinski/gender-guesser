@@ -1,5 +1,6 @@
 package dasz.model;
 
+import dasz.data.FileReader;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

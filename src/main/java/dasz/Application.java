@@ -1,6 +1,7 @@
 package dasz;
 
 import com.sun.net.httpserver.HttpServer;
+import dasz.model.GenderChecker;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -26,7 +27,11 @@ public class Application {
                 Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
                 String noNameText = "no names given";
                 String name = params.getOrDefault("name", List.of(noNameText)).stream().findFirst().orElse(noNameText);
-                String respText = "Names checked: " + name;
+                String defaultVariant = "allNames";
+                String variant = params.getOrDefault(" variant", List.of(defaultVariant)).stream().findFirst().orElse(defaultVariant);
+                GenderChecker genderChecker = new GenderChecker();
+                String respText = String.valueOf(genderChecker.checkName(name, variant));
+                //String respText = "Names checked: " + name + "variant: "+ variant;
                 exchange.sendResponseHeaders(200, respText.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
                 output.write(respText.getBytes());

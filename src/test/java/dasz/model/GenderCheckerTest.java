@@ -9,9 +9,9 @@ class GenderCheckerTest {
     @Test
     void checkAllNames() {
         GenderChecker genderChecker = new GenderChecker();
-        Gender result = genderChecker.checkAllNames("Ewa Jan Maurycy");
+        Gender result = genderChecker.checkName("Ewa Jan Maurycy", "allNames");
         assertEquals(Gender.MALE, result);
-        Gender result1 = genderChecker.checkAllNames("Ewa Jan");
+        Gender result1 = genderChecker.checkName("Ewa Jan", "allNames");
         assertEquals(Gender.INCONCLUSIVE, result1);
     }
 }
