@@ -1,7 +1,7 @@
 package dasz;
 
 import com.sun.net.httpserver.HttpServer;
-import dasz.data.FileReader;
+import dasz.data.NamesService;
 import dasz.model.GenderChecker;
 
 import java.io.IOException;
@@ -29,8 +29,13 @@ public class Application {
                 String name = params.getOrDefault("name", List.of(noNameText)).stream().findFirst().orElse(noNameText);
                 String defaultVariant = "allNames";
                 String variant = params.getOrDefault(" variant", List.of(defaultVariant)).stream().findFirst().orElse(defaultVariant);
-                GenderChecker genderChecker = new GenderChecker();
-                String respText = String.valueOf(genderChecker.checkName(name, variant));
+                String respText;
+                if (name.equals("No names given")){
+                    respText = name;
+                }else {
+                    GenderChecker genderChecker = new GenderChecker();
+                    respText = String.valueOf(genderChecker.checkName(name, variant));
+                }
                 exchange.sendResponseHeaders(200, respText.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
                 output.write(respText.getBytes());
@@ -43,11 +48,11 @@ public class Application {
 
         server.createContext("/api/nameList", (exchange -> {
             if ("GET".equals(exchange.getRequestMethod())) {
-                FileReader fileReader = new FileReader();
-                String namesData = fileReader.getNamesData();
+                NamesService namesService = new NamesService();
+                String namesData = namesService.getNamesData();
                 exchange.sendResponseHeaders(200, namesData.getBytes().length);
                 OutputStream output = exchange.getResponseBody();
-                output.write(namesData.getBytes());
+                output.write(namesData.getBytes(StandardCharsets.UTF_8));
                 output.flush();
             } else {
                 exchange.sendResponseHeaders(405, -1);// 405 Method Not Allowed

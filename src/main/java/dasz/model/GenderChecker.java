@@ -1,9 +1,9 @@
 package dasz.model;
 
-import dasz.data.FileReader;
+import dasz.data.NamesService;
 
 public class GenderChecker {
-    FileReader fileReader = new FileReader();
+    NamesService namesService = new NamesService();
 
     public Gender checkName(String names, String variant) {
         if (variant.equals("firstName")) {
@@ -14,7 +14,7 @@ public class GenderChecker {
 
     private Gender checkFirstName(String names) {
         String firstName = names.split(" ")[0];
-        return fileReader.checkNameInFile(firstName);
+        return namesService.checkNameInFile(firstName);
     }
 
     private Gender checkAllNames(String names) {
@@ -23,7 +23,7 @@ public class GenderChecker {
         int females = 0;
         int inconclusive = 0;
         for (String s : allNames) {
-            Gender gender = fileReader.checkNameInFile(s);
+            Gender gender = namesService.checkNameInFile(s);
             switch (gender) {
                 case MALE -> males++;
                 case FEMALE -> females++;

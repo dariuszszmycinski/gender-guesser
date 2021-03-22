@@ -1,18 +1,18 @@
 package dasz.model;
 
-import dasz.data.FileReader;
+import dasz.data.NamesService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileReaderTest {
+class NamesServiceTest {
 
     @Test
     void checkNameInFile() {
-        FileReader fileReader = new FileReader();
-        Gender result = fileReader.checkNameInFile("Ewa");
+        NamesService namesService = new NamesService();
+        Gender result = namesService.checkNameInFile("Ewa");
         assertEquals(Gender.FEMALE, result);
-        Gender result1 = fileReader.checkNameInFile("Jan");
+        Gender result1 = namesService.checkNameInFile("Jan");
         assertEquals(Gender.MALE, result1);
     }
 }
